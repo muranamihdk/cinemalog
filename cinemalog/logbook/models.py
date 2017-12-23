@@ -4,7 +4,7 @@ from django.db import models
 class Movie(models.Model):
     """映画"""
     #id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL
-    date = models.DateTimeField("視聴日", default=date.today)
+    date = models.DateField("視聴日", default=date.today)
     track_id = models.CharField("トラックID", max_length=20, blank=True)
     itunes_url = models.URLField("iTunesStore URL", blank=True)
     preview_url = models.URLField("プレビューURL", blank=True)
