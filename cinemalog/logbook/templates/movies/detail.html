@@ -1,1 +1,30 @@
-{{ movie }}
+{% extends "movies/base.html" %}
+
+{% block content %}
+
+    <h1>{{ movie.title }}</h1>
+    
+    <ul>
+        <li>{{ movie.date }}</li>  {# 視聴日 #}
+        <li>{{ movie.track_id }}</li>  {# トラックID #}
+        <li>{{ movie.itunes_url }}</li>  {# iTunesStore URL #}
+        <li>{{ movie.preview_url }}</li>  {# プレビューURL #}
+        <li>{{ movie.img_url30 }}</li>  {# Height30画像URL #}
+        <li>{{ movie.img_url60 }}</li>  {# Height60画像URL #}
+        <li>{{ movie.img_url100 }}</li>  {# Height100画像URL #}
+        <li>{{ movie.title }}</li>  {# タイトル #}
+        <li>{{ movie.director }}</li>  {# 監督 #}
+        <li>{{ movie.genre }}</li>  {# ジャンル #}
+        <li>{{ movie.release }}</li>  {# リリース #}
+        <li>{{ movie.runtime }}</li>  {# 上映時間 #}
+        <li>{{ movie.score }}</li>  {# スコア #}
+        <li>{{ movie.review }}</li>  {# レビュー #}
+    </ul>
+    
+    <ul>
+    <li><a href="{% url 'logbook:edit' movie.id %}">Edit</a></li>
+    <li><a href="{% url 'logbook:delete' movie.id %}">Delete</a></li>
+    <li><a href="{% url 'logbook:index' %}">Return Index</a></li>
+    </ul>
+
+{% endblock %}
