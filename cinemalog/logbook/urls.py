@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 
 # Create your views here.
+app_name = 'logbook'
 urlpatterns = [
     # ex: /movies/
     path('', views.index, name='index'),
