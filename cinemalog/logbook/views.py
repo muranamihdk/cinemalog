@@ -33,7 +33,7 @@ class MovieCreate(CreateView):
 
 class MovieUpdate(UpdateView):
     model = Movie
-    fields = ['date', 'track_id', 'itunes_url', 'preview_url', 'img_url30', 'img_url60', 'img_url100', 'title', 'director', 'genre', 'release', 'runtime', 'score', 'review']
+    form_class = MovieForm
     template_name = 'movies/edit.html'
 
 
