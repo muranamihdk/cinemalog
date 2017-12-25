@@ -17,7 +17,7 @@ class Movie(models.Model):
     genre = models.CharField("ジャンル", max_length=10, blank=True)
     release = models.CharField("リリース", max_length=4, blank=True)
     runtime = models.CharField("上映時間", max_length=10, blank=True)
-    score = models.IntegerField("スコア", default=3)
+    score = models.IntegerField("スコア", default=3, choices=((1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5')))
     review = models.TextField("レビュー", blank=True)
 
     def __str__(self):
