@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.urls import include, path
 from django.contrib import admin
+from logbook.views import TopRedirect
 
 urlpatterns = [
     path(r'admin/', admin.site.urls),
+    path(r'', TopRedirect.as_view(), name='redirect-to-list'),
     path(r'movies/', include('logbook.urls')),
 ]

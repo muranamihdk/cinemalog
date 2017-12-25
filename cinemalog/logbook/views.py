@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.views import generic
@@ -38,8 +38,14 @@ class MovieUpdate(UpdateView):
 
 
 def delete(request, movie_id):
+    #DeleteView Classで実装するとき
     #model = Author
     #success_url = reverse_lazy('logbook:index')
     movie = get_object_or_404(Movie, pk=movie_id)
     movie.delete()
-    return HttpResponseRedirect(reverse('logbook:index'))
+    #return HttpResponseRedirect(reverse('logbook:index'))
+    return redirect(reverse('logbook:index'))
+
+
+class TopRedirect(generic.RedirectView):
+    url = reverse_lazy('logbook:index')
