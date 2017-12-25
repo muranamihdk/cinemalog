@@ -10,7 +10,7 @@ from .forms import MovieForm
 # Create your views here.
 class IndexView(generic.ListView):
     model = Movie
-    paginate_by = 20
+    paginate_by = 100
     template_name = 'movies/index.html'
 
     #queryset = Movie.objects.order_by('-date')

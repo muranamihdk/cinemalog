@@ -5,11 +5,33 @@
     <a href="{% url 'logbook:add' %}">Add</a>
     
     {% if movie_list %}
-        <ul>
-        {% for movie in movie_list %}
-            <li><a href="{% url 'logbook:detail' movie.id %}">{{ movie.title }}</a></li>
-        {% endfor %}
-        </ul>
+        <table id="movies">
+            {% for movie in movie_list %}
+                <tr>
+                    <td><a href="{% url 'logbook:detail' movie.id %}">🎬</a></td>
+                    <td>{{ movie.title }}</td>
+                    <td>{{ movie.date }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        {% if is_paginated %}
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                    <li><a href="{% url 'logbook:index' %}?page={{ page_obj.previous_page_number }}">previous</a></li>
+                {% endif %}
+                {% for link_page in page_obj.paginator.page_range %}
+                    {% if link_page == page_obj.number %}
+                        <li class="active">{{ link_page }}</li>
+                    {% else %}
+                        <li><a href="{% url 'logbook:index' %}?page={{ link_page }}">{{ link_page }}</a></li>
+                    {% endif %}
+                {% endfor %}
+    
+                {% if page_obj.has_next %}
+                    <li><a href="{% url 'logbook:index' %}?page={{ page_obj.next_page_number }}">next</a></li>
+                {% endif %}
+            </ul>
+        {% endif %}
     {% else %}
         <p>No movies are available.</p>
     {% endif %}
