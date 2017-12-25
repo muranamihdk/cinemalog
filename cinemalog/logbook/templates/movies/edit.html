@@ -16,6 +16,11 @@
     
     <ul>
     <li><a href="{% url 'logbook:detail' pk=movie.id %}">Cancel</a></li>
+    <li><a href="{% url 'logbook:index' %}">Return Index</a></li>
+    </ul>
+
+    <ul>
+    <li><a href="{% url 'logbook:delete' movie.id %}">Delete</a></li>
     </ul>
 
 {% endblock %}
