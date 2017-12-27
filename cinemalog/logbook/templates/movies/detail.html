@@ -1,25 +1,41 @@
 {% extends "movies/base.html" %}
+{% load static %}
 
 {% block content %}
 
-    <h1>{{ movie.title }}</h1>
-    
-    <ul>
-        <li>{{ movie.date }}</li>  {# 視聴日 #}
-        <li>{{ movie.track_id }}</li>  {# トラックID #}
-        <li>{{ movie.itunes_url }}</li>  {# iTunesStore URL #}
-        <li>{{ movie.preview_url }}</li>  {# プレビューURL #}
-        <li>{{ movie.img_url30 }}</li>  {# Height30画像URL #}
-        <li>{{ movie.img_url60 }}</li>  {# Height60画像URL #}
-        <li>{{ movie.img_url100 }}</li>  {# Height100画像URL #}
-        <li>{{ movie.title }}</li>  {# タイトル #}
-        <li>{{ movie.director }}</li>  {# 監督 #}
-        <li>{{ movie.genre }}</li>  {# ジャンル #}
-        <li>{{ movie.release }}</li>  {# リリース #}
-        <li>{{ movie.runtime }}</li>  {# 上映時間 #}
-        <li>{{ movie.score }}</li>  {# スコア #}
-        <li>{{ movie.review }}</li>  {# レビュー #}
-    </ul>
+<div id="detail_main">
+<table class="detail_table" style="">
+    <tr>
+    <td valign="top" class="img">
+    <a href="{{ movie.itunes_url }}"><img src="{% static 'logbook/images' %}/{{ movie.img_url100 | slice:":1" | lower }}/{{ movie.img_url100 }}" class="movie_img" /></a>
+    </td>
+<td valign="middle" style="text-align:center;">
+<span class="title" style="font-weight:bold;padding-left:10px;">{{ movie.title }}</span><br />
+</td>
+</tr>
+
+<th style="padding-top:15px;">監督</th><td style="padding-left:10px;padding-top:15px;"><form method="POST" name="filter_with_director" action="index.cgi"><input type="hidden" name="mode" value="filtered" /><input type="hidden" name="director" value="{{ movie.director }}" /><span onClick="document.filter_with_director.submit();">{{ movie.director }}</span></form></td>
+<tr><th>リリース</th><td style="padding-left:10px;">{{ movie.release }}</td></tr>
+<tr><th>時間</th><td style="padding-left:10px;">{{ movie.runtime }}</td></tr>
+<tr><th>ジャンル</th><td style="padding-left:10px;">{{ movie.genre }}</td></tr>
+<tr><th>視聴日</th><td style="padding-left:10px;">{{ movie.date }}</td></tr>
+{% if movie.score == 1 %}
+<th>評価</th><td class="score" style="padding-left:10px;color:gold;">★</td>
+{% elif movie.score == 2 %}
+<th>評価</th><td class="score" style="padding-left:10px;color:gold;">★★</td>
+{% elif movie.score == 3 %}
+<th>評価</th><td class="score" style="padding-left:10px;color:gold;">★★★</td>
+{% elif movie.score == 4 %}
+<th>評価</th><td class="score" style="padding-left:10px;color:gold;">★★★★</td>
+{% elif movie.score == 5 %}
+<th>評価</th><td class="score" style="padding-left:10px;color:gold;">★★★★★</td>
+{% endif %}
+<tr><th>コメント</th><td style="padding-left:10px;">{{ movie.review }}</td></tr>
+
+<tr><th colspan="2" class="preview" style="padding-top:10px;"><video src="{{ movie.preview_url }}" preload="none" controls></video></th></tr>
+
+</table>
+</div>
     
     <ul>
     <li><a href="{% url 'logbook:edit' movie.id %}">Edit</a></li>
