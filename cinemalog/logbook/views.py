@@ -26,7 +26,7 @@ class DetailView(generic.DetailView):
 class MovieCreate(CreateView):
     model = Movie
     form_class = MovieForm
-    template_name = 'movies/add.html'
+    template_name = 'movies/create.html'
     #success_url = reverse_lazy('logbook:detail')
 
 
