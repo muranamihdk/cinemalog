@@ -14,7 +14,7 @@
                     <td valign="top" class="img">
                         <a href="{% url 'logbook:detail' movie.id %}">
                         {% if movie.img_url100 %}
-                        <img src="{% static 'logbook/images' %}/{{ movie.img_url100 }}" style="padding-right:5px;" class="movie_img" />
+                        <img src="{% static 'logbook/images' %}/{{ movie.img_url100 | slice:":1" | lower }}/{{ movie.img_url100 }}" style="padding-right:5px;" class="movie_img" />
                         {% else %}
                         <img src="{% static 'logbook/images/n-a.gif' %}" style="padding-right:5px;" class="movie_img" />
                         {% endif %}
