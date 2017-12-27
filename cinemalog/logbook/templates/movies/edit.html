@@ -20,7 +20,7 @@
     </ul>
 
     <ul>
-    <li><a href="{% url 'logbook:delete' movie.id %}">Delete</a></li>
+    <li><a href="{% url 'logbook:delete' movie.id %}" onclick="return confirm('Are you sure to delete the item?')">Delete</a></li>
     </ul>
 
 {% endblock %}

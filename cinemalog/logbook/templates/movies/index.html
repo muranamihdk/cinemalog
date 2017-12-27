@@ -1,19 +1,47 @@
 {% extends "movies/base.html" %}
+{% load static %}
 
 {% block content %}
 
     <a href="{% url 'logbook:add' %}">Add</a>
-    
+
     {% if movie_list %}
-        <table id="movies">
-            {% for movie in movie_list %}
+        <div class="movies">
+        {% for movie in movie_list %}
+            <hr class="movie_hr" />
+            <table class="movie">
                 <tr>
-                    <td><a href="{% url 'logbook:detail' movie.id %}">🎬</a></td>
-                    <td>{{ movie.title }}</td>
-                    <td>{{ movie.date }}</td>
+                    <td valign="top" class="img">
+                        <a href="{% url 'logbook:detail' movie.id %}">
+                        {% if movie.img_url100 %}
+                        <img src="{% static 'logbook/images' %}/{{ movie.img_url100 }}" style="padding-right:5px;" class="movie_img" />
+                        {% else %}
+                        <img src="{% static 'logbook/images/n-a.gif' %}" style="padding-right:5px;" class="movie_img" />
+                        {% endif %}
+                        </a>
+                    </td>
+                    <td valign="top">
+                        <span class="title">{{ movie.title }}</span><br />
+                        <div>
+                        {{ movie.date | date:"Y-n-d" }}<br />
+                        {% if movie.score == 1 %}
+                        <span class="score" style="color:gold;">★</span>
+                        {% elif movie.score == 2 %}
+                        <span class="score" style="color:gold;">★★</span>
+                        {% elif movie.score == 3 %}
+                        <span class="score" style="color:gold;">★★★</span>
+                        {% elif movie.score == 4 %}
+                        <span class="score" style="color:gold;">★★★★</span>
+                        {% elif movie.score == 5 %}
+                        <span class="score" style="color:gold;">★★★★★</span>
+                        {% endif %}
+                        </div>
+                    </td>
                 </tr>
-            {% endfor %}
-        </table>
+            </table>
+        {% endfor %}
+        </div>
+
         {% if is_paginated %}
             <ul class="pagination">
                 {% if page_obj.has_previous %}
@@ -32,8 +60,10 @@
                 {% endif %}
             </ul>
         {% endif %}
+
     {% else %}
         <p>No movies are available.</p>
+
     {% endif %}
 
 {% endblock %}
