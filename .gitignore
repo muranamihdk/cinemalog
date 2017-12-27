@@ -1,8 +1,8 @@
 .DS_Store
 *.sqlite3
 *.jpg
-logbook/fixtures
-logbook/migrations
+cinemalog/logbook/fixtures
+cinemalog/logbook/migrations
 
 
 # Byte-compiled / optimized / DLL files
