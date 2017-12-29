@@ -20,5 +20,6 @@ from logbook.views import TopRedirect
 urlpatterns = [
     path(r'admin/', admin.site.urls),
     path(r'', TopRedirect.as_view(), name='redirect-to-list'),
-    path(r'movies/', include('logbook.urls')),
+    path(r'movies/', include('logbook.urls'), name='logbook'),
+    path(r'itunesstore/', include('itunesstore.urls'), name='itunesstore'),
 ]
