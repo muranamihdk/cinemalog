@@ -1,13 +1,12 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse, reverse_lazy
 from django.views import generic
-from django.views.generic.edit import CreateView, UpdateView, DeleteView 
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from .models import Movie
-from .forms import MovieForm
+from .forms import MovieCreateForm, MovieUpdateForm
 
 
-# Create your views here.
 class IndexView(generic.ListView):
     model = Movie
     paginate_by = 100
@@ -25,14 +24,14 @@ class DetailView(generic.DetailView):
 
 class MovieCreate(CreateView):
     model = Movie
-    form_class = MovieForm
+    form_class = MovieCreateForm
     template_name = 'movies/create.html'
     #success_url = reverse_lazy('logbook:detail')
 
 
 class MovieUpdate(UpdateView):
     model = Movie
-    form_class = MovieForm
+    form_class = MovieUpdateForm
     template_name = 'movies/edit.html'
 
 
