@@ -8,6 +8,26 @@
     </ul>
 
     {% if movie_list %}
+
+        {% if is_paginated %}
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                    <li><a href="{% url 'logbook:index' %}?page={{ page_obj.previous_page_number }}">previous</a></li>
+                {% endif %}
+                {% for link_page in page_obj.paginator.page_range %}
+                    {% if link_page == page_obj.number %}
+                        <li class="active">{{ link_page }}</li>
+                    {% else %}
+                        <li><a href="{% url 'logbook:index' %}?page={{ link_page }}">{{ link_page }}</a></li>
+                    {% endif %}
+                {% endfor %}
+    
+                {% if page_obj.has_next %}
+                    <li><a href="{% url 'logbook:index' %}?page={{ page_obj.next_page_number }}">next</a></li>
+                {% endif %}
+            </ul>
+        {% endif %}
+
         <div class="movies">
         {% for movie in movie_list %}
             <hr class="movie_hr" />
