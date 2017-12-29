@@ -1,0 +1,48 @@
+{% extends "itunesstore/base.html" %}
+{% load static %}
+
+{% block content %}
+
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+    <ul>
+        <li><a href="{% url 'logbook:add' %}"><< 戻る</a></li>
+        <li><a href="{% url 'logbook:index' %}">Cancel</a></li>
+    </ul>
+    
+    <form action="{% url 'itunesstore:results' %}" method="get">
+        <label>再検索 <input type="text" size="20" name="search_key"></label>
+        <input type="submit" value="検索">
+    </form>
+    
+    {% if movie_list %}
+        <div class="movies">
+        {% for movie in movie_list.results %}
+            <hr class="movie_hr" />
+            <table class="movie">
+                <tr>
+                    <td valign="top" class="img">
+                        <a href="{% url 'itunesstore:detail' movie.trackId %}">
+                        {% if movie.artworkUrl100 %}
+                        <img src="{{ movie.artworkUrl100 }}" style="padding-right:5px;" class="movie_img" />
+                        {% else %}
+                        <img src="{% static 'itunesstore/images/n-a.gif' %}" style="padding-right:5px;" class="movie_img" />
+                        {% endif %}
+                        </a>
+                    </td>
+                    <td valign="top">
+                        <span class="title">{{ movie.trackName }}</span><br />
+                        {{ movie.artistName }}<br />
+                        {{ movie.releaseDate | slice:":10" }}<br />
+                    </td>
+                </tr>
+            </table>
+        {% endfor %}
+        </div>
+
+    {% else %}
+        <p>No movies are match.</p>
+
+    {% endif %}
+
+{% endblock %}

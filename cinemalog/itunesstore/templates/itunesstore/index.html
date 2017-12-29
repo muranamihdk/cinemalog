@@ -1,0 +1,11 @@
+{% extends "itunesstore/base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <form action="{% url 'itunesstore:results' %}" method="get">
+        <label>iTunes Storeで検索 <input type="text" size="20" name="search_key"></label>
+        <input type="submit" value="検索">
+    </form>
+
+{% endblock %}
