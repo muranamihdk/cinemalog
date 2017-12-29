@@ -3,7 +3,9 @@
 
 {% block content %}
 
-    <a href="{% url 'logbook:add' %}">Add</a>
+    <ul>
+        <li><a href="{% url 'logbook:add' %}">新規登録</a></li>
+    </ul>
 
     {% if movie_list %}
         <div class="movies">
