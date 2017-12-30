@@ -13,4 +13,6 @@ urlpatterns = [
     path('<int:movie_id>/delete/', views.delete, name='delete'),
     # ex: /movies/add/
     path('add/', views.MovieCreate.as_view(), name='add'),
+    # ex: /movies/add/
+    path('addwithdata/?track_id=<int:track_id>', views.MovieCreateWithITunesData.as_view(), name='addwithdata'),
 ]

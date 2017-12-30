@@ -4,7 +4,7 @@ from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from .models import Movie
-from .forms import MovieCreateForm, MovieUpdateForm
+from .forms import MovieCreateForm, MovieCreateWithITunesDataForm, MovieUpdateForm
 
 
 class IndexView(generic.ListView):
@@ -28,6 +28,27 @@ class MovieCreate(CreateView):
     template_name = 'movies/create.html'
     #success_url = reverse_lazy('logbook:detail')
 
+
+class MovieCreateWithITunesData(CreateView):
+    model = Movie
+    form_class = MovieCreateWithITunesDataForm
+    template_name = 'movies/create_with_itunes_data.html'
+
+    def get_initial(self):
+        return {
+            'track_id': self.kwargs['track_id'],
+            #'itunes_url': self.kwargs[''],
+            #'preview_url': self.kwargs[''],
+            #'img_url30': self.kwargs[''],
+            #'img_url60': self.kwargs[''],
+            #'img_url100': self.kwargs[''],
+            #'title': self.kwargs['title'],
+            #'director': self.kwargs[''],
+            #'genre': self.kwargs[''],
+            #'release': self.kwargs[''],
+            #'runtime': self.kwargs[''],
+        }
+        #fields = ['date', 'track_id', 'itunes_url', 'preview_url', 'img_url30', 'img_url60', 'img_url100', 'title', 'director', 'genre', 'release', 'runtime', 'score', 'review']
 
 class MovieUpdate(UpdateView):
     model = Movie
