@@ -29,7 +29,7 @@ class iTunesStoreAPI():
 
     def lookup(self, item_id):
         opt = {}
-        opt['id'] = ietm_id
+        opt['id'] = item_id
         opt['country'] = 'JP'
         return self.request(opt, self.lookup_path)
 
