@@ -7,8 +7,8 @@ class Movie(models.Model):
     #id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL
     date = models.DateField("視聴日", default=date.today)
     track_id = models.CharField("トラックID", max_length=20, blank=True)
-    itunes_url = models.URLField("iTunesStore URL", max_length=50, blank=True)
-    preview_url = models.URLField("プレビューURL", max_length=50, blank=True)
+    itunes_url = models.URLField("iTunesStore URL", max_length=300, blank=True)
+    preview_url = models.URLField("プレビューURL", max_length=300, blank=True)
     img_url30 = models.CharField("Height30画像URL", max_length=50, blank=True)
     img_url60 = models.CharField("Height60画像URL", max_length=50, blank=True)
     img_url100 = models.CharField("Height100画像URL", max_length=50, blank=True)
