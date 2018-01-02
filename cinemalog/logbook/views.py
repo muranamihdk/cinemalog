@@ -8,9 +8,14 @@ from .models import Movie
 from .forms import MovieCreateForm, MovieCreateWithITunesDataForm, MovieUpdateForm
 
 import os
+import logging
 from urllib.parse import urlparse
 import requests
 from itunesstore.iTunesStoreAPI import iTunesStoreAPI
+
+
+
+logger = logging.getLogger('django')
 
 
 
@@ -55,11 +60,18 @@ class MovieCreateWithITunesData(CreateView):
         #r = requests.get(image_url)
         r = requests.get(image_url, stream=True)
         if r.status_code == 200:
-            with open(local_path, 'wb') as f:
-                #f.write(r.content)
-                for chunk in r.iter_content(chunk_size=1024):
-                    if chunk: # filter out keep-alive new chunks
-                        f.write(chunk)
+            try:
+                with open(local_path, 'wb') as f:
+                    #f.write(r.content)
+                    for chunk in r.iter_content(chunk_size=1024):
+                        if chunk: # filter out keep-alive new chunks
+                            f.write(chunk)
+            except FileNotFoundError:
+                os.mkdir(os.path.join(os.path.dirname(__file__), 'static', 'logbook', 'images', image_file_name[:1]))
+                with open(local_path, 'wb') as f:
+                    for chunk in r.iter_content(chunk_size=1024):
+                        if chunk:
+                            f.write(chunk)
 
     def get_initial(self):
         itunes = iTunesStoreAPI()
@@ -68,9 +80,6 @@ class MovieCreateWithITunesData(CreateView):
         img_url30 = self._create_image_file_name(movie['artworkUrl30'])
         img_url60 = self._create_image_file_name(movie['artworkUrl60'])
         img_url100 = self._create_image_file_name(movie['artworkUrl100'])
-        self._save_image(movie['artworkUrl30'], img_url30)
-        self._save_image(movie['artworkUrl60'], img_url60)
-        self._save_image(movie['artworkUrl100'], img_url100)
         runtime = movie.get('trackTimeMillis', '')
         if runtime:
             if str(runtime).isdigit():
@@ -78,6 +87,7 @@ class MovieCreateWithITunesData(CreateView):
                 runtime = '{:d}時間{:d}分'.format(minutes//60, minutes%60)
         else:
             runtime = ''
+        self.movie = movie
         return {
             'track_id': movie['trackId'],
             'itunes_url': movie['trackViewUrl'],
@@ -93,10 +103,15 @@ class MovieCreateWithITunesData(CreateView):
         }
         #fields = ['date', 'track_id', 'itunes_url', 'preview_url', 'img_url30', 'img_url60', 'img_url100', 'title', 'director', 'genre', 'release', 'runtime', 'score', 'review']
 
-        def form_valid(self, form):
-            self.object = form.save()
-            # do something with self.object
-            return HttpResponseRedirect(self.get_success_url())
+    def form_valid(self, form):
+        #logger.info("form_valid")
+        #self.object = form.save()
+        # do something with self.object
+        #return HttpResponseRedirect(self.get_success_url())
+        self._save_image(self.movie['artworkUrl30'], form.cleaned_data['img_url30'])
+        self._save_image(self.movie['artworkUrl60'], form.cleaned_data['img_url60'])
+        self._save_image(self.movie['artworkUrl100'], form.cleaned_data['img_url100'])
+        return super().form_valid(form)
 
 
 class MovieUpdate(UpdateView):
