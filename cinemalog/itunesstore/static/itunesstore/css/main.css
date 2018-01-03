@@ -1,0 +1,37 @@
+@charset "utf-8";
+
+/* @group reset */
+
+* { margin: 0; padding: 0; }
+
+a { text-decoration: none; }
+ul, ol { list-style: none; }
+img { vertical-align:  middle; }
+
+/* @end */
+
+body {
+    margin: 3px 3px 12px 3px;
+    padding-bottom: 12px;
+}
+
+ul.pagination li {
+    display: inline;
+}
+
+input[type="text"] {
+    padding: 5px;
+    width: 280px;
+    font-size: 14px;
+}
+
+input[type="url"] {
+    padding: 5px;
+    width: 280px;
+    font-size: 14px;
+}
+
+input[type="submit"] {
+    margin-top: 7px;
+    font-size: 14px;
+}
