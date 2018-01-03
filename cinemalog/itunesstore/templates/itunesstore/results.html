@@ -6,8 +6,8 @@
     {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
     <ul>
+        <li><a href="{% url 'logbook:index' %}">Top</a></li>
         <li><a href="{% url 'logbook:add' %}"><< 戻る</a></li>
-        <li><a href="{% url 'logbook:index' %}">Cancel</a></li>
     </ul>
     
     <form action="{% url 'itunesstore:results' %}" method="get">
@@ -45,4 +45,9 @@
 
     {% endif %}
 
+    <ul>
+        <li><a href="{% url 'logbook:add' %}"><< 戻る</a></li>
+        <li><a href="{% url 'logbook:index' %}">Top</a></li>
+    </ul>
+    
 {% endblock %}
