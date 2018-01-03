@@ -8,6 +8,7 @@
 
     <ul>
         <li><a href="{% url 'logbook:index' %}">Top</a></li>
+        <li><a href="{{ request.META.HTTP_REFERER }}"><<戻る</a></li>
     </ul>
 
     <form action="{% url 'itunesstore:results' %}" method="get">
@@ -24,6 +25,7 @@
     <form>
     
     <ul>
+        <li><a href="{{ request.META.HTTP_REFERER }}"><<戻る</a></li>
         <li><a href="{% url 'logbook:index' %}">Top</a></li>
     </ul>
 
