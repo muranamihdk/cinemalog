@@ -1,4 +1,4 @@
-from django.forms import ModelForm, RadioSelect
+from django.forms import ModelForm, RadioSelect, Textarea
 from .models import Movie
 
 # Create the form class.
@@ -7,7 +7,8 @@ class MovieCreateForm(ModelForm):
         model = Movie
         fields = ['date', 'title', 'director', 'release', 'runtime', 'score', 'review']
         widgets = {
-            'score': RadioSelect
+            'score': RadioSelect,
+            'review': Textarea(attrs={'cols': 46,}),
         }
 
 
