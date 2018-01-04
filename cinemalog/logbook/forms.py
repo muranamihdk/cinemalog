@@ -6,6 +6,9 @@ class MovieCreateForm(ModelForm):
     class Meta:
         model = Movie
         fields = ['date', 'title', 'director', 'release', 'runtime', 'score', 'review']
+        widgets = {
+            'score': RadioSelect
+        }
 
 
 class MovieCreateWithITunesDataForm(ModelForm):

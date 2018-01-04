@@ -17,11 +17,30 @@
 
     <form method="post">
     {% csrf_token %}
-    <table>
-        {{ form.as_table }}
-    </table>
-    <input type="submit" value="登録" />
-    <form>
+        <dl>
+            <dt><label for="{{ form.date.id_for_label }}">鑑賞日</label></dt>
+            <dd>{{ form.date }}</dd>
+            <dt><label for="{{ form.title.id_for_label }}">映画名</label></dt>
+            <dd>{{ form.title }}</dd>
+            <dt><label for="{{ form.director.id_for_label }}">監督</label></dt>
+            <dd>{{ form.director }}</dd>
+            <dt><label for="{{ form.release.id_for_label }}">リリース</label></dt>
+            <dd>{{ form.release }}</dd>
+            <dt><label for="{{ form.runtime.id_for_label }}">上映時間</label></dt>
+            <dd>{{ form.runtime }}</dd>
+            <dt><label for="{{ form.score.id_for_label }}">評価</label></dt>
+            <dd> 1
+            {{ form.score.0 }}
+            {{ form.score.1 }}
+            {{ form.score.2 }}
+            {{ form.score.3 }}
+            {{ form.score.4 }}
+            5 </dd>
+            <dt><label for="{{ form.review.id_for_label }}">コメント</label></dt>
+            <dd>{{ form.review }}</dd>
+        </dl>
+        <input type="submit" value="登録する" />
+    </form>
 
     <ul>
         <li><a href="{% url 'logbook:index' %}">Cancel</a></li>
