@@ -12,7 +12,7 @@
         {% if is_paginated %}
             <ul class="pagination">
                 {% if page_obj.has_previous %}
-                    <li><a href="{% url 'logbook:index' %}?page={{ page_obj.previous_page_number }}">previous</a></li>
+                    <li><a href="{% url 'logbook:index' %}?page={{ page_obj.previous_page_number }}">prev.</a></li>
                 {% endif %}
                 {% for link_page in page_obj.paginator.page_range %}
                     {% if link_page == page_obj.number %}
@@ -67,7 +67,7 @@
         {% if is_paginated %}
             <ul class="pagination">
                 {% if page_obj.has_previous %}
-                    <li><a href="{% url 'logbook:index' %}?page={{ page_obj.previous_page_number }}">previous</a></li>
+                    <li><a href="{% url 'logbook:index' %}?page={{ page_obj.previous_page_number }}">prev.</a></li>
                 {% endif %}
                 {% for link_page in page_obj.paginator.page_range %}
                     {% if link_page == page_obj.number %}
