@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.conf import settings
 
 from .models import Movie
 from .forms import MovieCreateForm, MovieCreateWithITunesDataForm, MovieUpdateForm
@@ -51,12 +52,15 @@ class MovieCreateWithITunesData(CreateView):
         file_name = '{}.{}'.format(img_path.split('/')[-3], img_path.split('/')[-1])
         return file_name
 
-    def _create_image_path(self, image_file_name):
-        local_path = os.path.join(os.path.dirname(__file__), 'static', 'logbook', 'images', image_file_name[:1], image_file_name)
+    def _create_image_local_path(self, image_file_name):
+        if settings.STATIC_ROOT:
+            local_path = os.path.join(settings.STATIC_ROOT, 'logbook', 'images', image_file_name[:1], image_file_name)
+        else:
+            local_path = os.path.join(os.path.dirname(__file__), 'static', 'logbook', 'images', image_file_name[:1], image_file_name)
         return local_path
 
     def _save_image(self, image_url, image_file_name):
-        local_path = self._create_image_path(image_file_name)
+        local_path = self._create_image_local_path(image_file_name)
         #r = requests.get(image_url)
         r = requests.get(image_url, stream=True)
         if r.status_code == 200:
