@@ -7,7 +7,8 @@
     {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
     <ul>
-        <li><a href="{% url 'logbook:index' %}">Cancel</a></li>
+        <li><a href="{% url 'logbook:index' %}">Top</a></li>
+        <li><a href="{{ request.META.HTTP_REFERER }}"><< Cancel</a></li>
     </ul>
 
     <form action="{% url 'itunesstore:results' %}" method="get">
@@ -15,35 +16,10 @@
         <input type="submit" value="検索">
     </form>
 
-    <form method="post">
-    {% csrf_token %}
-        <dl>
-            <dt><label for="{{ form.date.id_for_label }}">鑑賞日</label></dt>
-            <dd>{{ form.date }}</dd>
-            <dt><label for="{{ form.title.id_for_label }}">映画名</label></dt>
-            <dd>{{ form.title }}</dd>
-            <dt><label for="{{ form.director.id_for_label }}">監督</label></dt>
-            <dd>{{ form.director }}</dd>
-            <dt><label for="{{ form.release.id_for_label }}">リリース</label></dt>
-            <dd>{{ form.release }}</dd>
-            <dt><label for="{{ form.runtime.id_for_label }}">上映時間</label></dt>
-            <dd>{{ form.runtime }}</dd>
-            <dt><label for="{{ form.score.id_for_label }}">評価</label></dt>
-            <dd> 1
-            {{ form.score.0.tag }}
-            {{ form.score.1.tag }}
-            {{ form.score.2.tag }}
-            {{ form.score.3.tag }}
-            {{ form.score.4.tag }}
-            5 </dd>
-            <dt><label for="{{ form.review.id_for_label }}">コメント</label></dt>
-            <dd>{{ form.review }}</dd>
-        </dl>
-        <input type="submit" value="登録する" />
-    </form>
+    {% include "movies/movie_form.html" %}
 
     <ul>
-        <li><a href="{% url 'logbook:index' %}">Cancel</a></li>
+        <li><a href="{% url 'logbook:index' %}"><< Cancel</a></li>
     </ul>
 
 {% endblock %}

@@ -6,7 +6,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.conf import settings
 
 from .models import Movie
-from .forms import MovieCreateForm, MovieCreateWithITunesDataForm, MovieUpdateForm
+from .forms import MovieForm
 
 import os
 import logging
@@ -17,6 +17,7 @@ from itunesstore.iTunesStoreAPI import iTunesStoreAPI
 
 
 logger = logging.getLogger('django')
+#logger.info("Info message")
 
 
 
@@ -37,16 +38,11 @@ class DetailView(generic.DetailView):
 
 class MovieCreate(CreateView):
     model = Movie
-    form_class = MovieCreateForm
+    form_class = MovieForm
     template_name = 'movies/create.html'
-    #success_url = reverse_lazy('logbook:detail')
 
 
-class MovieCreateWithITunesData(CreateView):
-    model = Movie
-    form_class = MovieCreateWithITunesDataForm
-    template_name = 'movies/create_with_itunes_data.html'
-
+class MovieCreateWithITunesData(MovieCreate):
     def _create_image_file_name(self, image_url):
         img_path = urlparse(image_url)[2]
         file_name = '{}.{}'.format(img_path.split('/')[-3], img_path.split('/')[-1])
@@ -105,13 +101,8 @@ class MovieCreateWithITunesData(CreateView):
             'release': movie['releaseDate'][:4],
             'runtime': runtime,
         }
-        #fields = ['date', 'track_id', 'itunes_url', 'preview_url', 'img_url30', 'img_url60', 'img_url100', 'title', 'director', 'genre', 'release', 'runtime', 'score', 'review']
 
     def form_valid(self, form):
-        #logger.info("form_valid")
-        #self.object = form.save()
-        # do something with self.object
-        #return HttpResponseRedirect(self.get_success_url())
         self._save_image(self.movie['artworkUrl30'], form.cleaned_data['img_url30'])
         self._save_image(self.movie['artworkUrl60'], form.cleaned_data['img_url60'])
         self._save_image(self.movie['artworkUrl100'], form.cleaned_data['img_url100'])
@@ -120,17 +111,13 @@ class MovieCreateWithITunesData(CreateView):
 
 class MovieUpdate(UpdateView):
     model = Movie
-    form_class = MovieUpdateForm
+    form_class = MovieForm
     template_name = 'movies/edit.html'
 
 
 def delete(request, movie_id):
-    #DeleteView Classで実装するとき
-    #model = Author
-    #success_url = reverse_lazy('logbook:index')
     movie = get_object_or_404(Movie, pk=movie_id)
     movie.delete()
-    #return HttpResponseRedirect(reverse('logbook:index'))
     return redirect(reverse('logbook:index'))
 
 
