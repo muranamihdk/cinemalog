@@ -17,12 +17,12 @@
     
     {% if movie_list %}
         <div class="movies">
-        {% for movie in movie_list.results %}
+        {% for movie in movie_list %}
             <hr class="movie_hr" />
             <table class="movie">
                 <tr>
                     <td valign="top" class="img">
-                        <a href="{% url 'logbook:addwithdata' track_id=movie.trackId %}">
+                        <a href="{% url 'logbook:addwithdata' movie.trackId %}">
                         {% if movie.artworkUrl100 %}
                         <img src="{{ movie.artworkUrl100 }}" style="padding-right:5px;" class="movie_img" />
                         {% else %}
