@@ -15,6 +15,16 @@ body {
     padding-bottom: 12px;
 }
 
+.register {
+    width: 5em;
+    margin-left: auto;
+}
+
+ul.pagination {
+    width: 50%;
+    margin-left: auto;
+}
+
 ul.pagination li {
     display: inline;
 }

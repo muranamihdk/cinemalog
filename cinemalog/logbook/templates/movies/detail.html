@@ -46,8 +46,9 @@
 </div>
 
 <ul>
-    <li><a href="{% url 'logbook:edit' movie.id %}">Edit</a></li>
+    <li><a href="{{ request.META.HTTP_REFERER }}"><< 戻る</a></li>
     <li><a href="{% url 'logbook:index' %}">Top</a></li>
+    <li><a href="{% url 'logbook:edit' movie.id %}">Edit</a></li>
 </ul>
 
 {% endblock %}

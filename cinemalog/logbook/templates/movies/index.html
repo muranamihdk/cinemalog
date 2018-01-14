@@ -3,27 +3,27 @@
 
 {% block content %}
 
-    <ul>
-        <li><a href="{% url 'logbook:add' %}">新規登録</a></li>
-    </ul>
+    <h1><a href="{% url 'logbook:index' %}">シネマ・ログ</a></h1>
+
+        <div class="register"><a href="{% url 'logbook:add' %}">新規登録</a></div>
 
     {% if movie_list %}
 
         {% if is_paginated %}
             <ul class="pagination">
                 {% if page_obj.has_previous %}
-                    <li><a href="{% url 'logbook:index' %}?page={{ page_obj.previous_page_number }}">prev.</a></li>
+                    <li><a href="{% url 'logbook:index' %}?page={{ page_obj.previous_page_number }}">&laquo; prev</a></li>
                 {% endif %}
                 {% for link_page in page_obj.paginator.page_range %}
                     {% if link_page == page_obj.number %}
-                        <li class="active">{{ link_page }}</li>
+                        <li class="active"><b>{{ link_page }}</b></li>
                     {% else %}
                         <li><a href="{% url 'logbook:index' %}?page={{ link_page }}">{{ link_page }}</a></li>
                     {% endif %}
                 {% endfor %}
     
                 {% if page_obj.has_next %}
-                    <li><a href="{% url 'logbook:index' %}?page={{ page_obj.next_page_number }}">next</a></li>
+                    <li><a href="{% url 'logbook:index' %}?page={{ page_obj.next_page_number }}">next &raquo;</a></li>
                 {% endif %}
             </ul>
         {% endif %}
