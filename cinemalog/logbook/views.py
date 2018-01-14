@@ -12,7 +12,7 @@ import os
 import logging
 from urllib.parse import urlparse
 import requests
-from itunesstore.iTunesStoreAPI import iTunesStoreAPI
+from itunesstore.iTunesStoreAPI import lookup
 
 
 
@@ -74,9 +74,7 @@ class MovieCreateWithITunesData(MovieCreate):
                             f.write(chunk)
 
     def get_initial(self):
-        itunes = iTunesStoreAPI()
-        results = itunes.lookup(self.kwargs['track_id'])
-        movie = results['results'][0]
+        movie = lookup(self.kwargs['track_id'])
         img_url30 = self._create_image_file_name(movie['artworkUrl30'])
         img_url60 = self._create_image_file_name(movie['artworkUrl60'])
         img_url100 = self._create_image_file_name(movie['artworkUrl100'])

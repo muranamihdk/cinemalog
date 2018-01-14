@@ -13,7 +13,7 @@ class iTunesStoreAPI():
         
     def request(self, opt, path):
         url = "https://{}{}".format(self.host, path)
-        r = requests.get(url, opt)
+        r = requests.get(url, opt, verify=False)
         return r.json()
 
 
@@ -34,24 +34,40 @@ class iTunesStoreAPI():
         return self.request(opt, self.lookup_path)
 
 
-def search_sample_movie():
-    import pprint
+
+def search_movie(keyword):
     itunes = iTunesStoreAPI()
-    keyword = 'エデンの東'
     media = 'movie'
     entity = 'movie'  #movieArtist, movie
     results = itunes.search(media, entity, keyword)
-    pprint.pprint(results)
+    result_count = results['resultCount']
+    movies = results['results']
+    return movies
 
-def search_sample_music():
-    import pprint
+
+def search_music(keyword):
     itunes = iTunesStoreAPI()
-    keyword = '未来のミュージアム'
     media = 'music'
     entity = 'song'  #musicArtist, musicTrack, album, musicVideo, mix, song
     results = itunes.search(media, entity, keyword)
-    pprint.pprint(results)
+    result_count = results['resultCount']
+    musics = results['results']
+    return musics
+
+def lookup(item_id):
+    itunes = iTunesStoreAPI()
+    results = itunes.lookup(item_id)
+    result_count = results['resultCount']
+    result = results['results'][0]
+    return result
+
+
 
 if __name__ == '__main__':
-    search_sample_movie()
-    #search_sample_music()
+    import pprint
+    keyword = 'エデンの東'
+    results = search_movie(keyword)
+    #keyword = '未来のミュージアム'
+    #results = search_music(keyword)
+    pprint.pprint(results)
+
